@@ -328,3 +328,37 @@ GROUP BY total_calls
 ORDER BY converted_leads;
 
 """
+
+regional_conversions="""
+WITH converted_leads AS (
+    SELECT DISTINCT lead_id
+    FROM leads_interaction_details
+    WHERE lead_stage = 'conversion'
+    AND call_status = 'successful'
+)
+
+SELECT
+    b.current_city,
+
+    COUNT(DISTINCT b.lead_id) AS total_leads,
+
+    COUNT(DISTINCT c.lead_id) AS converted_students,
+
+    ROUND(
+        100.0 * COUNT(DISTINCT c.lead_id)
+        / COUNT(DISTINCT b.lead_id),
+        2
+    ) AS conversion_rate
+
+FROM leads_basic_details b
+
+LEFT JOIN converted_leads c
+ON b.lead_id = c.lead_id
+
+GROUP BY b.current_city
+
+HAVING COUNT(DISTINCT b.lead_id) >= 10
+
+ORDER BY conversion_rate DESC;
+
+"""
