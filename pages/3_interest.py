@@ -129,3 +129,64 @@ with col4:
 
 st.markdown("---")
 
+st.markdown("## 🚨 Student Drop-Off Reason Analysis")
+
+st.error("""
+### Major Causes of Student Loss
+
+• The largest drop-off occurs during the Demo Stage, indicating that the business is losing students very early in the enrollment funnel.
+
+• The most common reason for student loss is a preference for offline classes (**56 students**) followed closely by affordability concerns (**48 students**) during the Demo Stage itself.
+
+• Combined across all stages, Affordability Issues account for **99 student drop-offs**, making it the single largest barrier to enrollment.
+
+• Preference for Offline Classes contributed to **91 student drop-offs**, making it the second largest cause of student loss.
+""")
+
+st.warning("""
+### Funnel Leakage Analysis
+
+• A significant number of students are leaving before reaching the Conversion Stage.
+
+• Since most losses occur during the Demo and Consideration stages, marketing money spent on acquiring these leads is not translating into enrollments.
+
+• Students who leave due to affordability or learning format preferences represent potentially recoverable leads because they are not rejecting the domain itself.
+
+• Only a smaller portion of students leave because they are not interested in the domain, suggesting that the course offering itself is not the primary issue.
+""")
+
+st.info("""
+### High-Value Recovery Opportunities
+
+• Nearly 190 student losses are attributed to only two reasons:
+    - Affordability Issues (99)
+    - Preference for Offline Classes (91)
+
+• These students have already shown interest in the program but are prevented from converting due to external barriers.
+
+• Recovering even a small percentage of these students could significantly increase enrollments without increasing marketing spend.
+""")
+
+st.success("""
+### Recommended Business Actions
+
+- Introduce EMI, installment, or scholarship options to address affordability concerns.
+
+- Strengthen communication around placement outcomes and ROI to justify course pricing.
+
+- Conduct surveys with students preferring offline classes to understand whether the concern is interaction, mentorship, networking, or learning effectiveness.
+
+- Explore hybrid learning models, periodic offline workshops, or community events to address offline-learning preferences.
+
+- Create separate follow-up campaigns for affordability-related and offline-preference leads instead of marking them as permanently lost.
+
+- Prioritize recovery campaigns for these students before investing additional budget into acquiring new leads.
+""")
+
+st.markdown("""
+### 💰 Profitability Impact
+
+The company is currently spending money to acquire leads that are being lost primarily due to affordability and learning-format concerns.
+
+Addressing these two barriers alone has the potential to recover the largest number of lost students, increase enrollment volume, and improve overall marketing ROI without increasing acquisition costs.
+""")

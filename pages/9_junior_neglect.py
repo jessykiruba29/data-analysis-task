@@ -112,3 +112,55 @@ with col4:
 
 st.markdown("---")
 
+
+st.markdown("## 📞 Junior Sales Managers with Uncontacted Leads")
+
+st.success("""
+### Overall Observation
+
+• Lead contact coverage across the sales team is extremely strong.
+
+• Only two junior sales managers were found to have uncontacted leads, indicating that lead follow-up processes are generally being executed effectively.
+
+• This reinforces the earlier finding that lead neglect is not a major contributor to student loss.
+""")
+
+st.warning("""
+### Managers Requiring Attention
+
+• JNR1006MG left **1 out of 20 assigned leads** uncontacted, resulting in a contact coverage rate of **95%**.
+
+• JNR1014MG also left **1 out of 20 assigned leads** uncontacted, resulting in a contact coverage rate of **95%**.
+
+• While the number of missed leads is small, every uncontacted lead represents a lost opportunity before the sales process even begins.
+""")
+
+st.info("""
+### Lead Source Analysis
+
+• The uncontacted lead under JNR1006MG originated from the SEO channel.
+
+• The uncontacted lead under JNR1014MG originated from the Website channel.
+
+• Since marketing resources were already spent acquiring these leads, failing to initiate contact results in wasted acquisition efforts.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Investigate the reasons why these leads were not contacted.
+
+- Implement automated reminders for counselors when newly assigned leads remain untouched.
+
+- Establish a Service Level Agreement (SLA) requiring first contact within a defined time period.
+
+- Monitor lead assignment dashboards regularly to ensure 100% outreach coverage.
+""")
+
+st.success("""
+### 💰 Business Impact
+
+The current level of lead neglect is very low and does not represent a major revenue risk.
+
+However, maintaining complete contact coverage ensures that every marketing-generated lead receives an opportunity to enter the conversion funnel, maximizing return on acquisition spend.
+""")

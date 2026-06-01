@@ -171,3 +171,46 @@ st.plotly_chart(fig6, use_container_width=True)
 
 # Strategic recommendations
 st.markdown("---")
+
+st.markdown("## 📊 Regional Engagement Insights")
+
+st.success("""
+**Top Performing Regions**
+- Chennai (English) recorded the highest engagement among major lead-generating regions with an average watch percentage of **67%**.
+- Hyderabad (English) closely followed with **66.14%**, indicating strong student interest.
+- These regions demonstrate higher potential for future conversions and should be prioritized for marketing campaigns.
+""")
+
+st.info("""
+**Language Performance**
+- English demos consistently outperformed Telugu demos across all major cities.
+- Example:
+    - Hyderabad: **66.14% vs 51.33%**
+    - Chennai: **67.00% vs 48.29%**
+- This suggests that English content currently resonates better with students and may contain best practices that can be replicated across regional-language demos.
+""")
+
+st.warning("""
+**Areas Requiring Attention**
+- Kochi Hindi (**28.75%**) and Hyderabad Hindi (**41.00%**) showed the lowest engagement levels.
+- Low engagement increases the risk of students dropping out before entering later stages of the enrollment funnel.
+- These regions should be reviewed for content quality, language suitability, and delivery effectiveness.
+""")
+
+st.error("""
+**Potential Revenue Leakage**
+- Students who disengage during demos represent lost marketing investment.
+- Improving engagement in low-performing language segments can reduce early-stage drop-offs and increase the pool of students available for conversion.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Increase lead acquisition efforts in Chennai and Hyderabad.
+
+- Prioritize students with higher demo watch percentages for faster counselor follow-up.
+
+- Audit Telugu and Hindi demo content to identify engagement gaps.
+
+- Establish minimum engagement benchmarks and continuously monitor underperforming city-language combinations.
+""")

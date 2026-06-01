@@ -164,5 +164,60 @@ with col2:
         delta_color="inverse"
     )
 
-# Volume vs Conversion Rate comparison
 st.markdown("---")
+
+st.markdown("## 🎯 Lead Source Conversion Analysis")
+
+st.success("""
+### Top Performing Lead Sources
+
+• Email Marketing achieved the highest conversion rate (**26.03%**) while also generating a strong lead volume (**73 leads**).
+
+• Social Media generated the highest number of leads (**87 leads**) and maintained a healthy conversion rate (**19.54%**).
+
+• SEO delivered a competitive conversion rate (**18.92%**) with a substantial lead volume (**74 leads**).
+
+These channels are currently the strongest contributors to student enrollments and should remain a key focus area for marketing investments.
+""")
+
+st.info("""
+### Marketing Effectiveness
+
+• Email Marketing is currently the most efficient acquisition channel, converting approximately **1 in every 4 leads** into a successful enrollment.
+
+• Social Media and SEO are performing at similar conversion levels, indicating that digital channels collectively play a significant role in driving enrollments.
+
+• User Referrals and Website leads generate comparatively lower conversion rates, suggesting that students from these channels may require stronger nurturing and follow-up.
+""")
+
+st.warning("""
+### Areas Requiring Attention
+
+• Website-generated leads have the lowest conversion rate (**10.34%**), despite generating **58 leads**.
+
+• User Referrals convert at only **12.12%**, which is significantly lower than Email Marketing.
+
+• These channels may be generating awareness but are less effective at bringing highly qualified prospects into the enrollment funnel.
+""")
+
+st.error("""
+### Potential Revenue Leakage
+
+• If Website leads converted at the same rate as Email Marketing, the business could potentially achieve substantially more enrollments without increasing lead acquisition costs.
+
+• Low-performing lead sources consume marketing resources while contributing fewer successful conversions, reducing overall marketing ROI.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Increase investment in Email Marketing campaigns due to the highest conversion efficiency.
+
+- Continue scaling Social Media and SEO campaigns as they provide both strong lead volume and healthy conversion rates.
+
+- Audit Website and Referral lead journeys to identify where students are disengaging.
+
+- Implement channel-specific nurturing strategies for lower-converting sources.
+
+- Analyze the characteristics of Email Marketing leads and replicate successful targeting strategies across other acquisition channels.
+""")

@@ -107,3 +107,68 @@ with col2:
     st.caption(f"Range: {worst_snr['lowest_conversion']:.1f}% - {worst_snr['highest_conversion']:.1f}%")
 
 
+
+st.markdown("---")
+st.markdown("## 👥 Senior Manager Team Performance Analysis")
+
+st.success("""
+### Top Performing Team
+
+• SNR501MG leads the highest-performing team with an average conversion rate of **25.66%**.
+
+• The team's lowest-performing junior still achieves **17.65%**, indicating consistently strong performance across the team.
+
+• This suggests effective coaching, lead allocation, and sales management practices.
+""")
+
+st.info("""
+### Team Performance Comparison
+
+• SNR504MG achieved the second-highest average conversion rate (**18.48%**).
+
+• SNR502MG and SNR503MG lag behind with average team conversion rates of **15.00%** and **12.41%** respectively.
+
+• The gap between the best and worst-performing teams exceeds **13 percentage points**, indicating substantial differences in team effectiveness.
+""")
+
+st.warning("""
+### Performance Consistency
+
+• SNR504MG shows the largest performance gap between juniors (**10.00% to 29.63%**).
+
+• This suggests that while some team members perform exceptionally well, others may require additional training or support.
+
+• Large variations within the same team often indicate inconsistent sales processes or coaching practices.
+""")
+
+st.error("""
+### Potential Revenue Leakage
+
+• Teams under SNR502MG and SNR503MG are converting significantly fewer students compared to SNR501MG.
+
+• If lower-performing teams could achieve conversion rates similar to the top-performing team, the business could generate substantially more enrollments from the same lead volume.
+
+• This represents a process and performance gap rather than a lead acquisition problem.
+""")
+
+st.markdown("""
+### Recommended Actions
+
+- Study the sales practices, follow-up strategies, and coaching methods used by SNR501MG's team.
+
+- Conduct knowledge-sharing sessions between high-performing and low-performing teams.
+
+- Review lead allocation fairness to ensure performance differences are not caused by lead quality.
+
+- Provide targeted coaching to juniors in teams showing large performance variation.
+
+- Establish standardized sales playbooks across all teams to reduce performance inconsistency.
+""")
+
+st.success("""
+### 💰 Business Impact
+
+The data suggests that conversion performance is influenced not only by lead quality but also by team effectiveness.
+
+Improving the performance of lower-performing teams could increase enrollments without requiring additional marketing spend, making this one of the most cost-effective opportunities for business growth.
+""")

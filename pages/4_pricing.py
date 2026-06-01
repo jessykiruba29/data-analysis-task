@@ -171,3 +171,66 @@ with col2:
     segment_opportunity = least_sensitive['totalleads'] - least_sensitive['price_issue']
     st.caption(f"💡 Opportunity: {segment_opportunity} leads who didn't cite price")
 
+st.markdown("---")
+
+st.markdown("## 💰 Education vs Pricing Sensitivity Analysis")
+
+st.error("""
+### Most Price-Sensitive Student Segments
+
+• Students who are currently Looking for a Job show the highest affordability-related drop-off rate at **55%**.
+
+• More than half of all job-seeking students who dropped out cited pricing as a major concern.
+
+• Degree students are the second most price-sensitive group, with **35%** of students dropping due to affordability issues.
+
+• B.Tech students generated the largest lead volume (**112 students**), but only **23%** dropped due to pricing concerns.
+
+• Intermediate students showed the lowest pricing sensitivity at **16%**.
+""")
+
+st.warning("""
+### Revenue Leakage Analysis
+
+• The company is losing a significant number of interested students due to affordability concerns rather than lack of interest.
+
+• The most critical segment is job-seeking students, where **53 out of 97 students** dropped because of pricing barriers.
+
+• These students have already demonstrated interest in career growth and are likely to convert if financial barriers are reduced.
+
+• Losing students at this stage means marketing and counselor efforts are not generating maximum return.
+""")
+
+st.info("""
+### Student Behavior Insights
+
+• Job-seeking students are likely evaluating the course as an investment and may hesitate without confidence in immediate returns.
+
+• B.Tech students appear less affected by pricing, possibly due to stronger parental support or greater awareness of career benefits.
+
+• Degree students represent a middle-ground segment where targeted financial assistance could significantly improve conversion rates.
+""")
+
+st.success("""
+### Recommended Business Actions
+
+- Introduce EMI and installment payment options specifically for job-seeking students.
+
+- Create placement-focused marketing campaigns highlighting salary growth and career outcomes.
+
+- Offer scholarships, referral discounts, or limited-time financial incentives for highly interested students.
+
+- Train counselors to emphasize ROI and placement success when interacting with price-sensitive segments.
+
+- Create separate nurturing campaigns for affordability-related leads instead of treating them as permanently lost.
+""")
+
+st.markdown("""
+### 📈 Potential Business Impact
+
+More than half of job-seeking students are being lost due to affordability concerns.
+
+Reducing pricing-related drop-offs within this segment could unlock one of the largest conversion opportunities in the entire enrollment funnel without increasing lead acquisition costs.
+
+This analysis suggests that pricing strategy may have a greater impact on conversions than generating additional leads.
+""")

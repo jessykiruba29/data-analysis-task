@@ -143,7 +143,7 @@ else:
 
 # Top performers
 st.markdown("---")
-st.subheader("⭐ Top Performers - Best Practices to Document")
+st.subheader("⭐ Top Performers")
 
 top_3 = df.nlargest(3, 'conversion_rate')
 
@@ -160,5 +160,70 @@ if not top_3.empty:
 else:
     st.info("No top performers identified yet")
 
-# Volume vs performance quadrant analysis
 st.markdown("---")
+
+st.markdown("## 📞 Junior Sales Manager Conversion Performance")
+
+st.error("""
+### Lowest Performing Sales Representatives
+
+• JNR1011MG recorded the lowest conversion rate at **7.69%**, converting only **2 out of 26 assigned leads**.
+
+• JNR1005MG, JNR1007MG, JNR1009MG, and JNR1013MG each converted only **10%** of their assigned leads.
+
+• These managers collectively handled a significant number of leads but generated relatively few successful conversions.
+
+• Low conversion rates may indicate issues with follow-up quality, objection handling, communication effectiveness, or lead nurturing.
+""")
+
+st.success("""
+### Top Performing Sales Representatives
+
+• JNR1002MG achieved the highest conversion rate at **35.00%**, converting **7 out of 20 leads**.
+
+• JNR1003MG and JNR1016MG also demonstrated strong performance with conversion rates of **30.00%** and **29.63%** respectively.
+
+• These counselors consistently convert a larger proportion of their assigned leads and may be following more effective sales practices.
+""")
+
+st.info("""
+### Performance Gap Analysis
+
+• The difference between the highest-performing counselor (**35%**) and the lowest-performing counselor (**7.69%**) is substantial.
+
+• Since all counselors operate within the same business environment, such large performance differences suggest that individual sales practices significantly influence conversion outcomes.
+
+• This indicates an opportunity to improve overall business performance through training and process standardization.
+""")
+
+st.warning("""
+### Potential Revenue Leakage
+
+• Many leads assigned to lower-performing counselors are not progressing to conversion.
+
+• The business has already invested marketing resources to acquire these leads, making every unconverted lead a potential revenue loss.
+
+• If the lowest-performing counselors could achieve even average conversion rates, the company could generate additional enrollments without increasing lead acquisition spend.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Conduct performance reviews for counselors with conversion rates below 15%.
+
+- Analyze call recordings and follow-up patterns of top performers such as JNR1002MG and JNR1003MG.
+
+- Create mentorship programs where high-performing counselors share successful strategies with lower-performing team members.
+
+- Establish minimum performance benchmarks and monitor counselor conversion rates regularly.
+
+- Investigate whether lead quality distribution is balanced across counselors before evaluating performance solely on conversion rates.
+""")
+
+st.success("""
+### 💰 Business Impact
+
+Improving the performance of the bottom-performing counselors represents a low-cost growth opportunity.
+
+Rather than spending additional money to acquire new leads, the business can increase enrollments by improving how existing leads are managed and nurtured by the sales team.
+""")

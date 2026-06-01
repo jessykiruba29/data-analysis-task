@@ -72,3 +72,63 @@ This indicates that students typically require multiple interactions before maki
 **Recommendation:** Establish a structured follow-up strategy and avoid closing leads prematurely, as many successful enrollments occur only after repeated engagement.
 """
 )
+
+st.markdown("---")
+
+st.markdown("## 📞 Follow-Up Calls vs Successful Conversions")
+
+st.success("""
+### Key Findings
+
+• The highest number of successful conversions occurred after **11 follow-up calls**, resulting in **33 converted students**.
+
+• Students contacted **9 times** contributed the second-highest number of conversions with **21 successful enrollments**.
+
+• Very few students converted after only 7 or 8 calls, suggesting that early follow-ups alone are often insufficient to secure enrollment.
+
+• The data indicates that successful conversions frequently require sustained engagement rather than a small number of interactions.
+""")
+
+st.info("""
+### Student Behavior Insights
+
+• Students may require multiple interactions before making an enrollment decision due to pricing concerns, family discussions, career evaluation, or comparison with alternative options.
+
+• Conversion appears to improve significantly after repeated counselor engagement.
+
+• This suggests that persistence and consistent follow-up play a critical role in the enrollment process.
+""")
+
+st.warning("""
+### Common Mistake to Avoid
+
+• Counselors may be tempted to stop pursuing leads after only a few unsuccessful attempts.
+
+• The data shows that most successful enrollments occur much later in the follow-up cycle.
+
+• Prematurely abandoning leads could result in losing students who may have converted with additional engagement.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Establish a structured follow-up process with a minimum outreach threshold.
+
+- Encourage counselors to continue nurturing interested students beyond the initial few calls.
+
+- Analyze the quality and timing of follow-ups performed by high-converting counselors.
+
+- Use automated reminders to ensure follow-up schedules are maintained consistently.
+
+- Monitor lead drop-off after each follow-up stage to identify optimal engagement strategies.
+""")
+
+st.success("""
+### 💰 Business Impact
+
+The analysis suggests that persistence directly contributes to successful enrollments.
+
+Rather than increasing marketing spend to acquire more leads, the business may achieve better results by improving counselor follow-up consistency and ensuring promising leads are nurtured through multiple touchpoints.
+
+This can increase conversions while maximizing the value of already acquired leads.
+""")

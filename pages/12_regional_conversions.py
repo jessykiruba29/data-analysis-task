@@ -77,3 +77,72 @@ st.success(f"""
 
 Cities with higher conversion rates represent strong opportunities for increased marketing investment, localized campaigns, and targeted sales efforts. Conversely, cities with lower conversion rates may require improvements in lead qualification, messaging, or sales engagement strategies.
 """)
+
+
+st.markdown("---")
+
+st.markdown("## 🌍 City-wise Conversion Performance")
+
+st.success("""
+### Top Performing Cities
+
+• Bengaluru achieved the highest conversion rate at **29.41%**, converting **15 out of 51 leads**.
+
+• Visakhapatnam also delivered strong results with **15 successful conversions** and a conversion rate of **19.74%**.
+
+• These cities demonstrate the strongest ability to convert acquired leads into enrolled students.
+""")
+
+st.info("""
+### Market Performance Comparison
+
+• Although Hyderabad generated the highest number of leads (**77**), its conversion rate remained at **16.88%**.
+
+• Visakhapatnam generated a similar number of leads (**76**) but achieved a noticeably higher conversion rate (**19.74%**).
+
+• Bengaluru generated fewer leads than Hyderabad and Visakhapatnam, yet produced the highest conversion efficiency, indicating stronger lead quality or more effective sales engagement.
+""")
+
+st.warning("""
+### Underperforming Regions
+
+• Mumbai recorded the lowest conversion rate at **10.42%**, converting only **5 out of 48 leads**.
+
+• Kochi also showed relatively weak conversion performance at **13.43%** despite generating a reasonable number of leads.
+
+• These regions may require additional investigation to identify factors affecting enrollment decisions.
+""")
+
+st.error("""
+### Potential Revenue Leakage
+
+• Hyderabad and Mumbai generated a large number of leads but converted a relatively small percentage of them.
+
+• This suggests that a significant amount of marketing effort and acquisition cost is not translating into enrollments.
+
+• Improving conversion performance in these cities could generate substantial additional revenue without increasing lead acquisition spending.
+""")
+
+st.markdown("""
+###  Recommended Actions
+
+- Study Bengaluru's sales process and replicate successful practices in other cities.
+
+- Prioritize counselor coaching and conversion optimization efforts in Mumbai and Kochi.
+
+- Investigate whether affordability concerns, demo engagement, or counselor performance differ across cities.
+
+- Allocate future marketing budgets based not only on lead volume but also on conversion efficiency.
+
+- Develop city-specific strategies instead of using a uniform enrollment approach across all regions.
+""")
+
+st.success("""
+### 💰 Business Impact
+
+Bengaluru demonstrates that strong conversion performance is achievable with the existing lead generation process.
+
+Rather than focusing solely on acquiring more leads, improving conversion rates in lower-performing cities could significantly increase enrollments and maximize the return on marketing investments.
+
+Even a small improvement in Hyderabad, Mumbai, or Kochi could result in a meaningful increase in overall revenue due to their existing lead volumes.
+""")

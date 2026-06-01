@@ -165,3 +165,58 @@ else:
 
 # Opportunity cities (high volume, low contact)
 st.markdown("---")
+st.markdown("## ☎️ City-wise Lead Contact Coverage Analysis")
+
+st.warning("""
+### Key Findings
+
+• Chennai and Visakhapatnam recorded uncontacted leads, indicating that not every acquired student received sales outreach.
+
+• Every uncontacted lead represents a student who never entered the conversion funnel despite the business investing resources to acquire them.
+
+• Unlike affordability or interest-related drop-offs, these losses occur before the business has an opportunity to influence the student's decision.
+""")
+
+st.error("""
+### Revenue Leakage
+
+• A missed lead is a preventable loss.
+
+• Marketing expenses have already been incurred to acquire these students, yet no sales effort was made to engage them.
+
+• Uncontacted leads provide zero opportunity for conversion, making them one of the most avoidable forms of revenue leakage.
+
+• Even a single neglected lead can represent a lost enrollment opportunity.
+""")
+
+st.info("""
+### Business Implications
+
+• Contact coverage should ideally be 100% across all cities.
+
+• The presence of uncontacted leads indicates gaps in lead assignment, follow-up tracking, or counselor accountability.
+
+• While affordability or domain interest may be outside the company's control, lead neglect is entirely controllable through process improvements.
+""")
+
+st.success("""
+### Recommended Actions
+
+- Establish a strict policy that every assigned lead must receive an initial contact attempt.
+
+- Implement automated alerts for leads that remain untouched beyond a predefined time limit.
+
+- Monitor counselor-level contact coverage as a key performance metric.
+
+- Conduct periodic audits to identify and eliminate operational gaps causing lead neglect.
+
+- Treat every uncontacted lead as a recoverable opportunity rather than a normal business loss.
+""")
+
+st.markdown("""
+### 💰 Business Impact
+
+Reducing lead neglect directly improves the utilization of marketing spend.
+
+Unlike other drop-off reasons that may require pricing or product changes, preventing lead neglect is an operational improvement that can be addressed immediately through better processes and accountability.
+""")
