@@ -73,22 +73,7 @@ fig2.update_layout(
 
 st.plotly_chart(fig2, use_container_width=True)
 
-# Pie chart: Distribution of price issues across education levels
-fig3 = px.pie(
-    df,
-    names="current_education",
-    values="price_issue",
-    title="Contribution to Total Price-Related Drop-offs by Education",
-    color_discrete_sequence=px.colors.qualitative.Set2,
-    hole=0.3
-)
 
-fig3.update_traces(
-    textposition='inside',
-    textinfo='percent+label'
-)
-
-st.plotly_chart(fig3, use_container_width=True)
 
 # Scatter plot: Total leads vs Price issue percentage
 fig4 = px.scatter(

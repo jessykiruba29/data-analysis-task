@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from sqlalchemy import text
+
 from db_config import engine
 from queries import regional_conversions
 
@@ -12,76 +14,126 @@ This analysis evaluates how effectively leads from different cities are converte
 The objective is to identify high-performing regions where marketing and sales efforts are yielding strong results, as well as cities that may require a different engagement strategy.
 """)
 
+# =====================================
+# DATA
+# =====================================
 
+df = pd.read_sql(text(regional_conversions), engine)
 
-df = pd.read_sql(regional_conversions, engine)
+# =====================================
+# KPI SECTION
+# =====================================
 
-# KPIs
-col1, col2, col3 = st.columns(3)
+best_city = df.loc[df["conversion_rate"].idxmax(), "current_city"]
+best_rate = df["conversion_rate"].max()
+
+total_leads = df["total_leads"].sum()
+total_converted = df["converted_students"].sum()
+
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
-        "Best Performing City",
-        df.iloc[0]["current_city"]
+        "🏆 Best City",
+        best_city
     )
 
 with col2:
     st.metric(
-        "Highest Conversion Rate",
-        f"{df['conversion_rate'].max()}%"
+        "📈 Highest Conversion",
+        f"{best_rate}%"
     )
 
 with col3:
     st.metric(
-        "Cities Analyzed",
+        "🎯 Total Conversions",
+        total_converted
+    )
+
+with col4:
+    st.metric(
+        "🌍 Cities Analyzed",
         len(df)
     )
 
 st.divider()
 
-# Conversion Rate Chart
-fig = px.bar(
+# =====================================
+# CHART 1
+# CONVERSION RATE
+# =====================================
+
+fig1 = px.bar(
     df,
     x="current_city",
     y="conversion_rate",
+    color="conversion_rate",
     text="conversion_rate",
-    title="City-wise Conversion Rate (%)"
+    title="City-wise Conversion Rate Ranking"
 )
 
-fig.update_traces(
-    texttemplate="%{text}%",
+fig1.update_traces(
+    texttemplate="%{text:.2f}%",
     textposition="outside"
 )
 
-fig.update_layout(
+fig1.update_layout(
     xaxis_title="City",
-    yaxis_title="Conversion Rate (%)"
+    yaxis_title="Conversion Rate (%)",
+    height=500
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
+
+# =====================================
+# CHART 2
+# LEADS VS CONVERSIONS
+# =====================================
+
+comparison_df = df.melt(
+    id_vars="current_city",
+    value_vars=[
+        "total_leads",
+        "converted_students"
+    ],
+    var_name="Metric",
+    value_name="Count"
+)
+
+fig2 = px.bar(
+    comparison_df,
+    x="current_city",
+    y="Count",
+    color="Metric",
+    barmode="group",
+    title="Total Leads vs Converted Students"
+)
+
+fig2.update_layout(
+    height=500
+)
+
+st.plotly_chart(fig2, use_container_width=True)
+
+
+# =====================================
+# DATA TABLE
+# =====================================
+
+st.subheader("📋 Detailed City Conversion Summary")
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
 
 st.divider()
 
-# Detailed Table
-st.subheader("City Conversion Summary")
-st.dataframe(df, use_container_width=True)
+# =====================================
+# INSIGHTS
+# =====================================
 
-# Insights
-best_city = df.iloc[0]["current_city"]
-best_rate = df.iloc[0]["conversion_rate"]
-
-st.success(f"""
-### Key Business Insight
-
-**{best_city}** has the highest conversion rate at **{best_rate}%**, making it the most effective market among the analyzed cities.
-
-Cities with higher conversion rates represent strong opportunities for increased marketing investment, localized campaigns, and targeted sales efforts. Conversely, cities with lower conversion rates may require improvements in lead qualification, messaging, or sales engagement strategies.
-""")
-
-
-st.markdown("---")
-
-st.markdown("## 🌍 City-wise Conversion Performance")
+st.markdown("## 💡 Business Insights")
 
 st.success("""
 ### Top Performing Cities
@@ -96,11 +148,11 @@ st.success("""
 st.info("""
 ### Market Performance Comparison
 
-• Although Hyderabad generated the highest number of leads (**77**), its conversion rate remained at **16.88%**.
+• Hyderabad generated the highest number of leads (**77**) but achieved a conversion rate of only **16.88%**.
 
-• Visakhapatnam generated a similar number of leads (**76**) but achieved a noticeably higher conversion rate (**19.74%**).
+• Bengaluru generated fewer leads but converted them significantly more effectively.
 
-• Bengaluru generated fewer leads than Hyderabad and Visakhapatnam, yet produced the highest conversion efficiency, indicating stronger lead quality or more effective sales engagement.
+• This suggests that conversion quality matters more than lead volume alone.
 """)
 
 st.warning("""
@@ -108,41 +160,43 @@ st.warning("""
 
 • Mumbai recorded the lowest conversion rate at **10.42%**, converting only **5 out of 48 leads**.
 
-• Kochi also showed relatively weak conversion performance at **13.43%** despite generating a reasonable number of leads.
+• Kochi achieved only **13.43%** conversion despite generating a healthy lead volume.
 
-• These regions may require additional investigation to identify factors affecting enrollment decisions.
+• These markets require further investigation into counselor performance, demo engagement, affordability concerns, and student intent.
 """)
 
 st.error("""
-### Potential Revenue Leakage
+### Revenue Leakage
 
-• Hyderabad and Mumbai generated a large number of leads but converted a relatively small percentage of them.
+• Hyderabad and Mumbai generated substantial lead volumes but failed to convert a proportional number of students.
 
-• This suggests that a significant amount of marketing effort and acquisition cost is not translating into enrollments.
+• Marketing investment is already being made to acquire these leads.
 
-• Improving conversion performance in these cities could generate substantial additional revenue without increasing lead acquisition spending.
+• Improving conversion efficiency in these cities can increase revenue without increasing acquisition costs.
+
+• Lost conversions in these markets represent the largest untapped revenue opportunity.
 """)
 
 st.markdown("""
-###  Recommended Actions
+### 🚀 Recommended Actions
 
-- Study Bengaluru's sales process and replicate successful practices in other cities.
+✅ Study Bengaluru's sales and counseling process and replicate successful practices across other cities.
 
-- Prioritize counselor coaching and conversion optimization efforts in Mumbai and Kochi.
+✅ Conduct focused reviews for Mumbai and Kochi to identify conversion bottlenecks.
 
-- Investigate whether affordability concerns, demo engagement, or counselor performance differ across cities.
+✅ Compare demo engagement, affordability concerns, and sales effectiveness across regions.
 
-- Allocate future marketing budgets based not only on lead volume but also on conversion efficiency.
+✅ Allocate future marketing budgets based on conversion efficiency rather than lead volume alone.
 
-- Develop city-specific strategies instead of using a uniform enrollment approach across all regions.
+✅ Develop city-specific enrollment strategies instead of a single national approach.
 """)
 
 st.success("""
 ### 💰 Business Impact
 
-Bengaluru demonstrates that strong conversion performance is achievable with the existing lead generation process.
+Bengaluru demonstrates that strong conversion performance is achievable with the current lead generation model.
 
-Rather than focusing solely on acquiring more leads, improving conversion rates in lower-performing cities could significantly increase enrollments and maximize the return on marketing investments.
+Rather than focusing solely on acquiring more leads, improving conversion rates in Hyderabad, Mumbai, and Kochi can significantly increase enrollments while keeping acquisition costs unchanged.
 
-Even a small improvement in Hyderabad, Mumbai, or Kochi could result in a meaningful increase in overall revenue due to their existing lead volumes.
+Even a small improvement in conversion efficiency across lower-performing cities could generate meaningful additional revenue.
 """)

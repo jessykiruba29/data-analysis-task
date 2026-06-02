@@ -13,32 +13,7 @@ df = pd.read_sql(junior_neglect, engine)
 # Display raw data
 st.dataframe(df)
 
-# Bar chart: Neglect rate by junior manager (highest first)
-fig = px.bar(
-    df,
-    x="jnr_sm_id",
-    y="neglect_rate_percent",
-    text="neglect_rate_percent",
-    color="neglect_rate_percent",
-    title="Lead Neglect Rate by Junior Manager (Worst Offenders First)",
-    labels={
-        "jnr_sm_id": "Junior Manager ID",
-        "neglect_rate_percent": "Neglect Rate (%)"
-    },
-    color_continuous_scale="Reds",
-    range_color=[0, 10]
-)
 
-fig.update_traces(
-    texttemplate='%{text:.1f}%',
-    textposition='outside'
-)
-fig.update_layout(
-    xaxis_tickangle=-45,
-    showlegend=False
-)
-
-st.plotly_chart(fig, use_container_width=True)
 
 # Dual metric bar chart: Assigned vs Contacted
 fig2 = go.Figure()

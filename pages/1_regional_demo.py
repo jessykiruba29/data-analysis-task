@@ -135,40 +135,6 @@ with col2:
     st.plotly_chart(fig5, use_container_width=True)
 
 
-
-
-
-# Language preference analysis
-st.markdown("---")
-st.subheader("🗺️ Language Preference by City")
-
-# Create a stacked bar chart showing language distribution per city
-lang_pivot = df.pivot(index="current_city", columns="language", values="totalleads").fillna(0)
-
-# Calculate percentages
-lang_pivot_pct = lang_pivot.div(lang_pivot.sum(axis=1), axis=0) * 100
-
-fig6 = px.bar(
-    lang_pivot_pct,
-    x=lang_pivot_pct.index,
-    y=lang_pivot_pct.columns,
-    title="Language Preference (% of Leads) by City",
-    labels={
-        "index": "City",
-        "value": "Percentage of Leads (%)",
-        "variable": "Language"
-    },
-    barmode="stack"
-)
-
-fig6.update_layout(
-    xaxis_tickangle=-45,
-    yaxis_title="Percentage (%)",
-    legend_title_text="Language"
-)
-
-st.plotly_chart(fig6, use_container_width=True)
-
 # Strategic recommendations
 st.markdown("---")
 

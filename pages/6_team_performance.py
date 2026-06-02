@@ -38,28 +38,7 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
-# Scatter plot: Team size vs performance
-fig2 = px.scatter(
-    df,
-    x="total_juniors",
-    y="avg_team_conversion",
-    size="total_juniors",
-    text="snr_sm_id",
-    title="Team Size vs Average Conversion Rate",
-    labels={
-        "total_juniors": "Number of Junior Managers",
-        "avg_team_conversion": "Average Team Conversion Rate (%)"
-    },
-    color="avg_team_conversion",
-    color_continuous_scale="Viridis"
-)
 
-fig2.update_traces(
-    textposition='top center',
-    marker=dict(sizeref=2.*max(df['total_juniors'])/(40.**2), sizemin=4)
-)
-
-st.plotly_chart(fig2, use_container_width=True)
 
 # Range chart: Best vs worst junior performance within each senior's team
 fig3 = px.bar(

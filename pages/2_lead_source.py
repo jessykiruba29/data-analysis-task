@@ -40,22 +40,6 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
-# Pie chart: Contribution to total conversions
-fig2 = px.pie(
-    df,
-    names="source",
-    values="successful_conversions",
-    title="Contribution to Total Successful Conversions",
-    color_discrete_sequence=px.colors.qualitative.Set2,
-    hole=0.3
-)
-
-fig2.update_traces(
-    textposition='inside',
-    textinfo='percent+label'
-)
-
-st.plotly_chart(fig2, use_container_width=True)
 
 # Additional valuable charts
 st.markdown("---")

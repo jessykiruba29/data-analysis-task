@@ -361,3 +361,51 @@ HAVING COUNT(DISTINCT b.lead_id) >= 10
 ORDER BY conversion_rate DESC;
 
 """
+
+delay_analysis="""
+WITH post_demo_calls AS (
+    SELECT
+        lead_id,
+        MIN(
+            STR_TO_DATE(call_done_date,'%m/%d/%Y')
+        ) AS post_demo_date
+    FROM leads_interaction_details
+    WHERE call_reason = 'post_demo_followup'
+    GROUP BY lead_id
+),
+
+converted_leads AS (
+    SELECT DISTINCT lead_id
+    FROM leads_interaction_details
+    WHERE lead_stage = 'conversion'
+      AND call_status = 'successful'
+)
+
+SELECT
+    DATEDIFF(
+        p.post_demo_date,
+        STR_TO_DATE(d.demo_watched_date,'%m/%d/%Y')
+    ) AS delay_days,
+
+    COUNT(DISTINCT d.lead_id) AS total_leads,
+
+    COUNT(DISTINCT c.lead_id) AS converted_leads,
+
+    ROUND(
+        100.0 * COUNT(DISTINCT c.lead_id)
+        / COUNT(DISTINCT d.lead_id),
+        2
+    ) AS conversion_rate
+
+FROM leads_demo_watched_details d
+
+INNER JOIN post_demo_calls p
+    ON d.lead_id = p.lead_id
+
+LEFT JOIN converted_leads c
+    ON d.lead_id = c.lead_id
+
+GROUP BY delay_days
+ORDER BY delay_days;
+
+"""

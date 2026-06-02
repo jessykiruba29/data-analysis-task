@@ -1,130 +1,184 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from sympy import im
 from db_config import engine
 from queries import age_group
 
 st.title("🎯 Lead Age Group Analysis")
 
 st.markdown("""
-This analysis identifies the dominant age groups among leads. Understanding the age distribution helps the marketing team create targeted campaigns, messaging, and content tailored to the largest audience segments.
+This analysis identifies the dominant age groups among leads and evaluates which age segments contribute the most conversions.
+
+Understanding age-based behavior helps the business optimize marketing campaigns, content strategy, counselor engagement, and budget allocation.
 """)
+
+# =====================================
+# DATA
+# =====================================
 
 df = pd.read_sql(age_group, engine)
 
-# KPIs
-col1, col2 = st.columns(2)
+# Conversion data from analysis
+conversion_df = pd.DataFrame({
+    "age_group": ["16-20", "21-25", "31+"],
+    "conversion_share": [47.78, 51.67, 0.56]
+})
+
+# =====================================
+# KPI SECTION
+# =====================================
+
+largest_group = df.loc[df["total_leads"].idxmax(), "age_group"]
+largest_percent = df["percentage_of_leads"].max()
+
+total_leads = df["total_leads"].sum()
+
+col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
-        "Largest Age Segment",
-        df.loc[df["total_leads"].idxmax(), "age_group"]
+        "🎯 Largest Age Segment",
+        largest_group
     )
 
 with col2:
     st.metric(
-        "Highest Share",
-        f"{df['percentage_of_leads'].max()}%"
+        "📈 Highest Share",
+        f"{largest_percent}%"
+    )
+
+with col3:
+    st.metric(
+        "👥 Total Leads",
+        total_leads
     )
 
 st.divider()
 
-# Chart
-fig = px.bar(
+# =====================================
+# CHART 1
+# LEAD DISTRIBUTION
+# =====================================
+
+fig1 = px.bar(
     df,
     x="age_group",
     y="total_leads",
+    color="total_leads",
     text="percentage_of_leads",
-    title="Lead Distribution by Age Group"
+    title="Lead Distribution Across Age Groups"
 )
 
-fig.update_traces(
-    texttemplate='%{text}%',
-    textposition='outside'
+fig1.update_traces(
+    texttemplate="%{text}%",
+    textposition="outside"
 )
 
-fig.update_layout(
+fig1.update_layout(
     xaxis_title="Age Group",
-    yaxis_title="Number of Leads"
+    yaxis_title="Number of Leads",
+    height=500
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
+
+# =====================================
+# CHART 2
+# AUDIENCE SHARE DONUT
+# =====================================
+
+fig2 = px.pie(
+    df,
+    names="age_group",
+    values="total_leads",
+    hole=0.55,
+    title="Audience Composition by Age Group"
+)
+
+fig2.update_layout(height=550)
+
+st.plotly_chart(fig2, use_container_width=True)
+
+
+# =====================================
+# DATA TABLE
+# =====================================
+
+st.subheader("📋 Age Group Summary")
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
 
 st.divider()
 
-# Table
-st.subheader("Data Summary")
-st.dataframe(df, use_container_width=True)
+# =====================================
+# INSIGHTS
+# =====================================
 
-# Insight
-largest_group = df.loc[df["total_leads"].idxmax(), "age_group"]
-largest_percent = df["percentage_of_leads"].max()
-
-st.success(
-    f"""
-    **Business Insight**
-
-    The majority of leads belong to the **{largest_group}** age group,
-    accounting for **{largest_percent}%** of all leads.
-
-    Marketing campaigns, creatives, demo content, and communication strategies
-    should primarily target this segment to maximize engagement and conversion opportunities.
-    """
-)
-
-st.markdown("---")
-
-st.markdown("## 🎯 Age Group vs Conversion Analysis")
+st.markdown("## 💡 Business Insights")
 
 st.success("""
-### Highest Converting Age Segment
+### Primary Target Audience
 
-• Students aged **21-25 years** account for the largest share of conversions at **51.67%**.
+• Students aged **21–25 years** contribute **51.67% of all conversions**, making them the most valuable customer segment.
 
-• This age group appears to be the primary target audience for the program, likely due to their strong focus on career growth, skill development, and job opportunities.
+• This group is typically focused on employment opportunities, career advancement, and upskilling initiatives.
 
-• Marketing efforts targeted toward this segment are likely to generate the highest return on investment.
+• Marketing campaigns targeted at this audience are likely to generate the highest return on investment.
 """)
 
 st.info("""
-### Secondary Opportunity Segment
+### Strong Secondary Segment
 
-• Students aged **16-20 years** contribute **47.78%** of total conversions.
+• Students aged **16–20 years** contribute **47.78% of conversions**, making them another highly valuable audience.
 
-• Although slightly lower than the 21-25 segment, this group still represents a significant portion of successful enrollments.
+• These students are generally preparing for internships, placements, and future career opportunities.
 
-• These students may be more focused on building skills early in their academic journey and can be nurtured through long-term engagement campaigns.
+• Early engagement with this segment can create long-term enrollment opportunities and increase lifetime value.
 """)
 
 st.warning("""
-### Underrepresented Segment
+### Low-Converting Segment
 
-• Students aged **31+** account for only **0.56%** of conversions.
+• Students aged **31+** account for only **0.56% of conversions**.
 
-• This suggests that the current offering, messaging, or marketing channels may not strongly resonate with older learners.
+• Current marketing messages and course offerings may not strongly resonate with older learners.
 
-• Given the extremely low conversion contribution, this segment currently represents a lower-priority target audience.
+• This audience currently contributes very little to overall enrollment numbers.
+""")
+
+st.error("""
+### Marketing Efficiency Opportunity
+
+• More than **99% of conversions come from students aged 16–25 years**.
+
+• Marketing budgets distributed across broader demographics may reduce overall efficiency.
+
+• Concentrating acquisition efforts on the 16–25 age range can significantly improve conversion outcomes while lowering acquisition costs.
 """)
 
 st.markdown("""
 ###  Recommended Actions
 
-- Prioritize marketing campaigns targeting students aged 21-25 years.
+- Prioritize marketing campaigns targeting students aged **21–25 years**.
 
-- Develop career-focused messaging, placement success stories, and salary-growth narratives for this segment.
+- Create career-focused messaging emphasizing placements, salary growth, and industry readiness.
 
-- Continue nurturing the 16-20 age group through educational content and early career guidance.
+- Continue nurturing the **16–20 age group** through educational content, internships, and skill-building narratives.
 
 - Evaluate whether marketing spend directed toward older age groups is generating sufficient returns.
 
-- Build age-specific campaigns instead of using a single communication strategy for all students.
+- Develop age-specific landing pages, ad creatives, and communication strategies rather than using a single campaign approach.
 """)
 
 st.success("""
 ### 💰 Business Impact
 
-Nearly all conversions come from students aged between 16 and 25 years.
+The analysis clearly shows that students aged **16–25 years drive virtually all enrollments**.
 
-Focusing acquisition and nurturing efforts on these high-converting age groups can improve marketing efficiency, increase enrollments, and reduce spending on low-return audience segments.
+By aligning marketing investments, counselor efforts, and content strategies around these high-converting segments, the business can increase enrollment efficiency, improve conversion rates, and maximize the return on marketing spend.
+
+Focusing resources on the most responsive audience segments will likely produce better results than increasing overall lead acquisition volume.
 """)

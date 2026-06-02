@@ -13,31 +13,7 @@ df = pd.read_sql(city_neglect, engine)
 # Display raw data
 st.dataframe(df)
 
-# Bar chart: Contact rate by city (worst first)
-fig = px.bar(
-    df,
-    x="current_city",
-    y="contact_rate",
-    text="contact_rate",
-    color="contact_rate",
-    title="Lead Contact Rate by City (Worst to Best)",
-    labels={
-        "current_city": "City",
-        "contact_rate": "Contact Rate (%)"
-    },
-    color_continuous_scale="RdYlGn_r"  # Red for low contact, Green for high
-)
 
-fig.update_traces(
-    texttemplate='%{text:.1f}%',
-    textposition='outside'
-)
-fig.update_layout(
-    xaxis_tickangle=-45,
-    showlegend=False
-)
-
-st.plotly_chart(fig, use_container_width=True)
 
 # Stacked bar: Contacted vs Ignored leads
 fig2 = go.Figure()

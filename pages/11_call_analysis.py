@@ -4,131 +4,183 @@ import plotly.express as px
 from db_config import engine
 from queries import call_analysis
 
-st.title("📞 Follow-Up Calls vs Conversions")
+st.title("📞 Follow-Up Calls vs Successful Conversions")
 
 st.markdown("""
-This analysis examines how many follow-up calls were required before a student successfully converted.
+This analysis evaluates how many follow-up calls are typically required before a student successfully enrolls.
 
-The objective is to understand whether conversions happen quickly or require sustained engagement from the sales team.
+The goal is to understand whether conversions happen quickly or require persistent engagement from the counseling team.
 """)
-
 
 df = pd.read_sql(call_analysis, engine)
 
-# KPI Section
-col1, col2 = st.columns(2)
+# ==================================================
+# KPI SECTION
+# ==================================================
 
-with col1:
-    st.metric(
-        "Most Common Call Count",
-        df.loc[df["converted_leads"].idxmax(), "total_calls"]
-    )
+best_calls = df.loc[
+    df["converted_leads"].idxmax(),
+    "total_calls"
+]
 
-with col2:
-    st.metric(
-        "Maximum Conversions",
-        df["converted_leads"].max()
-    )
+best_conversions = df["converted_leads"].max()
+
+total_conversions = df["converted_leads"].sum()
+
+avg_calls = round(
+    (df["total_calls"] * df["converted_leads"]).sum()
+    / total_conversions,
+    1
+)
+
+col1, col2, col3, col4 = st.columns(4)
+
+col1.metric(
+    "🏆 Peak Conversion Point",
+    f"{best_calls} Calls"
+)
+
+col2.metric(
+    "🎯 Max Conversions",
+    best_conversions
+)
+
+col3.metric(
+    "📈 Total Conversions",
+    total_conversions
+)
+
+col4.metric(
+    "☎️ Avg Calls to Convert",
+    avg_calls
+)
 
 st.divider()
 
-# Chart
-fig = px.bar(
+# ==================================================
+# CHART 1
+# ==================================================
+
+fig1 = px.bar(
     df,
     x="total_calls",
     y="converted_leads",
+    color="converted_leads",
     text="converted_leads",
-    title="Converted Leads by Number of Follow-Up Calls"
+    title="Successful Conversions by Number of Follow-Ups"
 )
 
-fig.update_traces(textposition="outside")
+fig1.update_traces(
+    textposition="outside"
+)
 
-fig.update_layout(
+fig1.update_layout(
     xaxis_title="Number of Calls",
-    yaxis_title="Converted Leads",
-    showlegend=False
+    yaxis_title="Converted Students",
+    height=500
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
+
+
+# ==================================================
+# CHART 3
+# CONVERSION SHARE
+# ==================================================
+
+fig3 = px.pie(
+    df,
+    names="total_calls",
+    values="converted_leads",
+    hole=0.55,
+    title="Contribution of Each Follow-Up Bucket"
+)
+
+st.plotly_chart(fig3, use_container_width=True)
+
+
+
+# ==================================================
+# TABLE
+# ==================================================
+
+st.subheader("📋 Detailed Conversion Summary")
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
 
 st.divider()
 
-# Table
-st.subheader("Underlying Data")
-st.dataframe(df, use_container_width=True)
+# ==================================================
+# INSIGHTS
+# ==================================================
 
-# Business Insight
-max_calls = df.loc[df["converted_leads"].idxmax(), "total_calls"]
-max_conv = df["converted_leads"].max()
-
-st.success(
-    f"""
-### Key Insight
-
-The highest number of successful conversions (**{max_conv} students**) occurred after **{max_calls} follow-up calls**.
-
-This indicates that students typically require multiple interactions before making an enrollment decision. The sales process appears to benefit from persistent follow-ups rather than relying on early-stage conversions.
-
-**Recommendation:** Establish a structured follow-up strategy and avoid closing leads prematurely, as many successful enrollments occur only after repeated engagement.
-"""
-)
-
-st.markdown("---")
-
-st.markdown("## 📞 Follow-Up Calls vs Successful Conversions")
+st.markdown("## 💡 Business Insights")
 
 st.success("""
 ### Key Findings
 
-• The highest number of successful conversions occurred after **11 follow-up calls**, resulting in **33 converted students**.
+• The largest number of successful enrollments occurred after **11 follow-up calls**, resulting in **33 conversions**.
 
-• Students contacted **9 times** contributed the second-highest number of conversions with **21 successful enrollments**.
+• Students contacted **9 times** contributed another **21 conversions**, making it the second most productive follow-up bucket.
 
-• Very few students converted after only 7 or 8 calls, suggesting that early follow-ups alone are often insufficient to secure enrollment.
+• Together, the 9-call and 11-call groups account for the majority of all successful enrollments.
 
-• The data indicates that successful conversions frequently require sustained engagement rather than a small number of interactions.
+• Very few students converted after only 7 or 8 interactions.
 """)
 
 st.info("""
-### Student Behavior Insights
+### Student Decision-Making Behavior
 
-• Students may require multiple interactions before making an enrollment decision due to pricing concerns, family discussions, career evaluation, or comparison with alternative options.
+• Students rarely make enrollment decisions immediately.
 
-• Conversion appears to improve significantly after repeated counselor engagement.
+• Many prospects require multiple conversations to address affordability concerns, career goals, parental approval, and program comparisons.
 
-• This suggests that persistence and consistent follow-up play a critical role in the enrollment process.
+• Repeated engagement appears to build trust and confidence before commitment.
 """)
 
 st.warning("""
-### Common Mistake to Avoid
+### Business Risk
 
-• Counselors may be tempted to stop pursuing leads after only a few unsuccessful attempts.
+• Leads that are abandoned after only a few calls may represent lost revenue opportunities.
 
-• The data shows that most successful enrollments occur much later in the follow-up cycle.
+• The data suggests that many successful enrollments occur much later in the follow-up cycle.
 
-• Prematurely abandoning leads could result in losing students who may have converted with additional engagement.
+• A short follow-up process may artificially reduce conversion rates.
+""")
+
+st.error("""
+### Revenue Leakage Opportunity
+
+• Students who eventually converted typically required sustained engagement.
+
+• If counselors stop follow-ups too early, the business risks losing students who could have converted with additional nurturing.
+
+• Lead acquisition costs have already been incurred, making follow-up optimization a high-ROI improvement area.
 """)
 
 st.markdown("""
 ###  Recommended Actions
 
-- Establish a structured follow-up process with a minimum outreach threshold.
+- Establish a minimum follow-up threshold before marking leads inactive.
 
-- Encourage counselors to continue nurturing interested students beyond the initial few calls.
+- Build automated follow-up schedules and reminders.
 
-- Analyze the quality and timing of follow-ups performed by high-converting counselors.
+- Study high-converting counselors and replicate their engagement patterns.
 
-- Use automated reminders to ensure follow-up schedules are maintained consistently.
+- Monitor follow-up completion rates as a key sales KPI.
 
-- Monitor lead drop-off after each follow-up stage to identify optimal engagement strategies.
+- Introduce lead nurturing workflows for students who remain undecided after initial interactions.
 """)
 
 st.success("""
 ### 💰 Business Impact
 
-The analysis suggests that persistence directly contributes to successful enrollments.
+This analysis demonstrates that persistence directly influences enrollment outcomes.
 
-Rather than increasing marketing spend to acquire more leads, the business may achieve better results by improving counselor follow-up consistency and ensuring promising leads are nurtured through multiple touchpoints.
+Instead of focusing solely on acquiring additional leads, the business can increase revenue by improving follow-up consistency and counselor engagement.
 
-This can increase conversions while maximizing the value of already acquired leads.
+Maximizing conversions from existing leads is significantly more cost-effective than generating new leads, making follow-up optimization a high-impact growth strategy.
 """)
