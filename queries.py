@@ -96,7 +96,6 @@ INNER JOIN leads_reasons_for_no_interest d
 ON a.lead_id=d.lead_id
 
 GROUP BY a.current_education
-HAVING COUNT(DISTINCT a.lead_id)>=10
 ORDER BY drop_percent DESC;
 
 """
