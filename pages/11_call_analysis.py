@@ -6,13 +6,23 @@ from queries import call_analysis
 
 st.title("📞 Follow-Up Calls vs Successful Conversions")
 
+
+df = pd.read_sql(call_analysis, engine)
+
+
 st.markdown("""
 This analysis evaluates how many follow-up calls are typically required before a student successfully enrolls.
-
 The goal is to understand whether conversions happen quickly or require persistent engagement from the counseling team.
 """)
 
-df = pd.read_sql(call_analysis, engine)
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
+
+st.divider()
+
 
 # ==================================================
 # KPI SECTION
@@ -100,18 +110,7 @@ st.plotly_chart(fig3, use_container_width=True)
 
 
 
-# ==================================================
-# TABLE
-# ==================================================
 
-st.subheader("📋 Detailed Conversion Summary")
-
-st.dataframe(
-    df,
-    use_container_width=True
-)
-
-st.divider()
 
 # ==================================================
 # INSIGHTS

@@ -8,15 +8,23 @@ st.title("🎯 Lead Age Group Analysis")
 
 st.markdown("""
 This analysis identifies the dominant age groups among leads and evaluates which age segments contribute the most conversions.
-
 Understanding age-based behavior helps the business optimize marketing campaigns, content strategy, counselor engagement, and budget allocation.
 """)
+
+df = pd.read_sql(age_group, engine)
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
+
+st.divider()
+
 
 # =====================================
 # DATA
 # =====================================
 
-df = pd.read_sql(age_group, engine)
 
 # Conversion data from analysis
 conversion_df = pd.DataFrame({
@@ -100,18 +108,6 @@ fig2.update_layout(height=550)
 st.plotly_chart(fig2, use_container_width=True)
 
 
-# =====================================
-# DATA TABLE
-# =====================================
-
-st.subheader("📋 Age Group Summary")
-
-st.dataframe(
-    df,
-    use_container_width=True
-)
-
-st.divider()
 
 # =====================================
 # INSIGHTS

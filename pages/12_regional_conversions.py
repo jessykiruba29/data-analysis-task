@@ -10,15 +10,19 @@ st.title("🌍 City-wise Conversion Analysis")
 
 st.markdown("""
 This analysis evaluates how effectively leads from different cities are converted into enrolled students.
-
 The objective is to identify high-performing regions where marketing and sales efforts are yielding strong results, as well as cities that may require a different engagement strategy.
 """)
 
-# =====================================
-# DATA
-# =====================================
-
 df = pd.read_sql(text(regional_conversions), engine)
+
+
+st.dataframe(
+    df,
+    use_container_width=True
+)
+
+st.divider()
+
 
 # =====================================
 # KPI SECTION
@@ -116,18 +120,7 @@ fig2.update_layout(
 st.plotly_chart(fig2, use_container_width=True)
 
 
-# =====================================
-# DATA TABLE
-# =====================================
 
-st.subheader("📋 Detailed City Conversion Summary")
-
-st.dataframe(
-    df,
-    use_container_width=True
-)
-
-st.divider()
 
 # =====================================
 # INSIGHTS

@@ -17,7 +17,7 @@ st.dataframe(df, use_container_width=True)
 # ==============================
 # KPI Metrics
 # ==============================
-
+st.divider()
 col1, col2, col3 = st.columns(3)
 
 best_rate = df["conversion_rate"].max()
